@@ -1,0 +1,1067 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!-- Import barcode generator templates -->
+    <xsl:include href="barcode.xsl"/>
+    <xsl:template match="OS">
+        <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+            <fo:layout-master-set>
+                <fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21.0cm" margin-top="0.5cm" margin-bottom="0.1cm" margin-left="1.0cm" margin-right="2.0cm">
+                    <fo:region-body margin-top="2.8cm" margin-bottom="1.4cm"/>
+                    <fo:region-before extent="3.5cm"/>
+                    <fo:region-after extent="1.3cm"/>
+                </fo:simple-page-master>
+            </fo:layout-master-set>
+            <fo:page-sequence master-reference="A4">
+                <fo:static-content flow-name="xsl-region-before">
+                    <fo:block>
+                        <xsl:apply-templates select="Cabecalho"/>
+                    </fo:block>
+                </fo:static-content>
+                <fo:static-content flow-name="xsl-region-after">
+                    <fo:block>
+                        <xsl:apply-templates select="Rodape"/>
+                    </fo:block>
+                </fo:static-content>
+                <fo:flow flow-name="xsl-region-body">
+                    <fo:block>
+                        <xsl:apply-templates select="Corpo"/>
+                    </fo:block>
+                </fo:flow>
+            </fo:page-sequence>
+        </fo:root>
+    </xsl:template>
+    <xsl:template match="PropriedadesDocumento">
+    </xsl:template>
+    <!-- Cabeçalho -->
+    <xsl:template match="Cabecalho">
+        <fo:block font-family="Helvetica">
+            <fo:table table-layout="fixed">
+                <fo:table-column column-width="proportional-column-width(1)"/>
+                <fo:table-column column-width="proportional-column-width(2)"/>
+                <fo:table-column column-width="proportional-column-width(1)"/>
+                <fo:table-column column-width="proportional-column-width(1)"/>
+                <fo:table-column column-width="proportional-column-width(2)"/>
+                <fo:table-column column-width="proportional-column-width(1)"/>
+                <fo:table-body>
+                    <fo:table-row height="1.4cm">
+                        <fo:table-cell number-columns-spanned="3">
+                            <fo:block>
+                                <fo:external-graphic src="http://motion-homolog.hpp.org.br/app-resources/images/logo_hpp.png" content-height="scale-to-fit" height="15mm"/>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="3">
+                            <fo:block font-family="Helvetica" text-align="right">
+                                <fo:instream-foreign-object>
+                                    <xsl:call-template name="barcode">
+                                        <xsl:with-param name="msg" select="CodigoOS"/>
+                                    </xsl:call-template>
+                                </fo:instream-foreign-object>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row font-size="0.2cm">
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">
+                                <xsl:value-of select="Data/rotulo"/>
+                                <xsl:text>: </xsl:text>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <xsl:value-of select="Data/valor"/>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block text-align="center" font-weight="bold">
+                                <xsl:value-of select="Via/rotulo"/>
+                                <xsl:text>: </xsl:text>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <xsl:value-of select="Via/valor"/>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row font-size="0.3cm">
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">
+                                <xsl:value-of select="Plataforma/rotulo"/>
+                                <xsl:text>: </xsl:text>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <xsl:value-of select="Plataforma/nome"/>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block text-align="center" font-weight="bold">
+                                <xsl:value-of select="Mapa/rotulo"/>
+                                <xsl:text>: </xsl:text>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <xsl:value-of select="Mapa/nome"/>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+            <fo:table table-layout="fixed">
+                <fo:table-column
+                                 column-width="proportional-column-width(2.0)"
+                                 border-collapse="separate" border-spacing="1mm" />
+                <fo:table-column
+                                 column-width="proportional-column-width(5.0)"
+                                 border-collapse="separate" border-spacing="1mm" />
+                <fo:table-body>
+                    <fo:table-row
+                                  keep-together.within-column="always">
+                        <fo:table-cell>
+                            <fo:table table-layout="fixed"
+                                      font-size="0.25cm" font-weight="bold" space-before="0.15cm">
+                                <fo:table-column
+                                                 column-width="proportional-column-width(2.0)" />
+                                <fo:table-body>
+                                    <fo:table-row>
+                                        <fo:table-cell
+                                                       border-style="solid" border-collapse="separate"
+                                                       border-spacing="1mm" border-width="0.8pt"
+                                                       border-color="black" background-color="#E1E1E1">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                              select="RotuloAmostra" />
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                </fo:table-body>
+                            </fo:table>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:table table-layout="fixed"
+                                      font-size="0.25cm" font-weight="bold" space-before="0.15cm">
+                                <fo:table-column column-width="proportional-column-width(1.4)"/>
+                                <fo:table-column column-width="proportional-column-width(1.8)"/>
+                                <fo:table-column column-width="proportional-column-width(0.9)"/>
+                                <fo:table-column column-width="proportional-column-width(0.9)"/>   
+                                <fo:table-body>
+                                    <fo:table-row>
+                                        <fo:table-cell
+                                                       border-style="solid" border-collapse="separate"
+                                                       border-spacing="1mm" border-width="0.8pt"
+                                                       border-color="black" background-color="#E1E1E1">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                              select="RotuloMaterial" />
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell
+                                                       border-style="solid" border-collapse="separate"
+                                                       border-spacing="1mm" border-width="0.8pt"
+                                                       border-color="black" background-color="#E1E1E1">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                              select="RotuloPaciente" />
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell
+                                                       border-style="solid" border-collapse="separate"
+                                                       border-spacing="1mm" border-width="0.8pt"
+                                                       border-color="black" background-color="#E1E1E1">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                              select="RotuloDataColeta" />
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell
+                                                       border-style="solid" border-collapse="separate"
+                                                       border-spacing="1mm" border-width="0.8pt"
+                                                       border-color="black" background-color="#E1E1E1">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                              select="RotuloDataSaida" />
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                </fo:table-body>
+                            </fo:table>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </xsl:template>
+    <!-- Corpo -->
+    <xsl:template match="Corpo">
+        <fo:block font-family="Helvetica" font-size="0.2cm">
+            <xsl:for-each select="Registros/RegistroAmostra">
+                <fo:table table-layout="fixed">
+                    <fo:table-column
+                                     column-width="proportional-column-width(1)" />
+                    <fo:table-body>
+                        <fo:table-row
+                                      keep-together.within-column="always">
+                            <fo:table-cell>
+                                <fo:table table-layout="fixed">
+                                    <fo:table-column
+                                                     column-width="proportional-column-width(2.0)"
+                                                     border-collapse="separate" border-spacing="1mm" />
+                                    <fo:table-column
+                                                     column-width="proportional-column-width(5.0)"
+                                                     border-collapse="separate" border-spacing="1mm" />
+                                    <fo:table-body>
+                                        <fo:table-row
+                                                      display-align="before">
+                                            <fo:table-cell
+                                                           border-collapse="separate">
+                                                <fo:table table-layout="fixed">
+                                                    <fo:table-column
+                                                                     column-width="proportional-column-width(0.3)" />
+                                                    <fo:table-column
+                                                                     column-width="proportional-column-width(1.7)" />
+                                                    <fo:table-body>
+                                                        <fo:table-row
+                                                                      keep-together.within-column="always">
+                                                            <fo:table-cell
+                                                                           text-align="right" display-align="center"
+                                                                           alignment-baseline="after-edge">
+                                                                <fo:block
+                                                                          font-size="0.4cm">
+                                                                    <xsl:value-of
+                                                                                  select="OrdemAmostra" />
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block
+                                                                          font-size="0.8cm" display-align="before">
+                                                                    <fo:instream-foreign-object>
+                                                                        <xsl:call-template name="barcode">
+                                                                            <xsl:with-param
+                                                                                            name="msg" select="CodigoAmostra" />
+                                                                        </xsl:call-template>
+                                                                    </fo:instream-foreign-object>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                    </fo:table-body>
+                                                </fo:table>
+                                            </fo:table-cell>
+                                            <fo:table-cell
+                                                           border-collapse="separate">
+                                                <fo:table table-layout="fixed">
+                                                    <fo:table-column column-width="proportional-column-width(1.4)"/>
+                                                    <fo:table-column column-width="proportional-column-width(1.8)"/>
+                                                    <fo:table-column column-width="proportional-column-width(0.9)"/>
+                                                    <fo:table-column column-width="proportional-column-width(0.9)"/>  
+                                                    <fo:table-body>
+                                                        <fo:table-row
+                                                                      keep-together.within-column="always">
+                                                            <fo:table-cell
+                                                                           background-color="#E1E1E1" border-collapse="separate"
+                                                                           border-spacing="1mm" font-size="0.25cm">
+                                                                <fo:block>
+                                                                    <xsl:value-of
+                                                                                  select="NomeMaterial" />
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           background-color="#E1E1E1" border-collapse="separate"
+                                                                           border-spacing="1mm" font-size="0.25cm">
+                                                                <fo:block
+                                                                          font-size="0.25cm">
+                                                                    <fo:inline
+                                                                               font-weight="bold">
+                                                                        <xsl:value-of
+                                                                                      select="../../RotuloCodigoRequisicao" />
+                                                                        :
+                                                                    </fo:inline>
+                                                                    <fo:inline>
+                                                                        <xsl:value-of
+                                                                                      select="CodigoRequisicao" />
+                                                                        <xsl:text>
+                                                                        </xsl:text>
+                                                                    </fo:inline>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           text-align="right" background-color="#E1E1E1"
+                                                                           border-collapse="separate" border-spacing="1mm"
+                                                                           font-size="0.25cm">
+                                                                <fo:block>
+                                                                    <xsl:value-of
+                                                                                  select="DataColeta" />
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           text-align="right" background-color="#E1E1E1"
+                                                                           border-collapse="separate" border-spacing="1mm"
+                                                                           font-size="0.25cm">
+                                                                <fo:block>
+                                                                    <xsl:value-of
+                                                                                  select="DataSaida" />
+                                                                </fo:block>
+                                                            </fo:table-cell>               
+                                                        </fo:table-row>
+                                                        <fo:table-row
+                                                                      display-align="before">
+                                                            <fo:table-cell>
+                                                                <fo:block />
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           number-columns-spanned="3" border-collapse="separate"
+                                                                           border-spacing="1mm">
+                                                                <fo:block>
+                                                                    <fo:inline
+                                                                               font-weight="bold">
+                                                                        <xsl:value-of
+                                                                                      select="../../RotuloNomePaciente" />
+                                                                        :
+                                                                    </fo:inline>
+                                                                    <fo:inline>
+                                                                        <xsl:value-of
+                                                                                      select="Paciente/DadosPessoais/NomePaciente" />
+                                                                        <xsl:text>
+                                                                        </xsl:text>
+                                                                    </fo:inline>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row
+                                                                      display-align="before">
+                                                            <fo:table-cell>
+                                                                <fo:block />
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           number-columns-spanned="3" border-collapse="separate"
+                                                                           border-spacing="1mm">
+                                                                <fo:block>
+                                                                    <fo:inline
+                                                                               font-weight="bold">
+                                                                        <xsl:value-of
+                                                                                      select="../../RotuloSexo" />
+                                                                        :
+                                                                    </fo:inline>
+                                                                    <fo:inline>
+                                                                        <xsl:value-of
+                                                                                      select="Paciente/DadosPessoais/Sexo" />
+                                                                    </fo:inline>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row
+                                                                      display-align="before">
+                                                            <fo:table-cell>
+                                                                <fo:block />
+                                                            </fo:table-cell>
+                                                            <fo:table-cell
+                                                                           number-columns-spanned="3" border-collapse="separate"
+                                                                           border-spacing="1mm">
+                                                                <fo:block>
+                                                                    <fo:inline
+                                                                               font-weight="bold">
+                                                                        <xsl:value-of
+                                                                                      select="../../RotuloIdade" />
+                                                                        :
+                                                                    </fo:inline>
+                                                                    <fo:inline>
+                                                                        <xsl:value-of
+                                                                                      select="Paciente/DadosPessoais/IdadeCompleta" />
+                                                                        <xsl:text>
+                                                                        </xsl:text>
+                                                                        <xsl:value-of
+                                                                                      select="Paciente/DadosPessoais/DataNascimento" />
+                                                                    </fo:inline>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                    </fo:table-body>
+                                                </fo:table>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell>
+                                                <fo:block line-height="0.3cm">
+                                                    <!--<fo:inline font-weight="bold" font-size="0.25cm">
+                                                        <xsl:value-of select="../../../Cabecalho/RotuloContainer"/>:  
+                                                    </fo:inline>
+                                                    <fo:inline font-size="0.25cm">
+                                                        <xsl:value-of select="NomeContainer"/>
+                                                    </fo:inline>
+                                                </fo:block>
+                                                <xsl:if test="CentroOrigem">
+                                                    <fo:block line-height="0.35cm">
+                                                        <fo:inline font-weight="bold" font-size="0.25cm">
+                                                            <xsl:value-of select="../../RotuloCentroOrigem"/>: 
+                                                        </fo:inline>
+                                                        <fo:inline font-size="0.25cm">
+                                                            <xsl:value-of select="CentroOrigem"/>
+                                                        </fo:inline>
+                                                    </fo:block>
+                                                </xsl:if>
+                                                <fo:block line-height="0.35cm">
+                                                    <fo:inline font-weight="bold" font-size="0.25cm">
+                                                        <xsl:value-of select="../../../Cabecalho/RotuloPosicao"/>: 
+                                                    </fo:inline>
+                                                    <fo:inline font-size="0.35cm">
+                                                        <xsl:value-of select="Posicao"/>
+                                                    </fo:inline>-->
+                                                </fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell>
+                                                <fo:block
+                                                          font-size="0.3cm" line-height="0.6cm">
+                                                    <!--<fo:inline>
+                                                        <xsl:for-each
+                                                                      select="ConjuntoDeTestes/Teste">
+                                                            <xsl:value-of
+                                                                          select="CodigoTeste" />
+                                                            <xsl:if
+                                                                    test="Urgencia = 'true'">
+                                                                <xsl:text>
+                                                                </xsl:text>
+                                                                <fo:external-graphic
+                                                                                     src="os/urgente.gif" width="7px" height="7px"
+                                                                                     scaling="uniform" />
+                                                                <xsl:text>
+                                                                </xsl:text>
+                                                            </xsl:if>
+                                                            <xsl:text>
+                                                                :
+                                                            </xsl:text>
+                                                            <fo:inline
+                                                                       text-decoration="underline">
+                                                                <xsl:value-of
+                                                                              select="ResultadoAtual" />
+                                                            </fo:inline>
+                                                            <xsl:if
+                                                                    test="Repeticao &gt; 1">
+                                                                <xsl:value-of
+                                                                              select="ResultadoAnterior" />
+                                                            </xsl:if>
+                                                            <xsl:text>
+                                                                |
+                                                            </xsl:text>
+                                                        </xsl:for-each>
+                                                    </fo:inline>-->
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                                <fo:table>
+                                    <fo:table-column column-width="proportional-column-width(1.5)"/>
+                                    <fo:table-column column-width="proportional-column-width(1.7)"/>
+                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                    <fo:table-body>
+                                        <fo:table-row height="5cm" font-size="0.3cm">
+                                            <fo:table-cell>
+                                                <fo:table table-layout="fixed">
+                                                    <fo:table-column column-width="proportional-column-width(0.8)"/>
+                                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                                    <fo:table-column column-width="proportional-column-width(1.1)"/>
+                                                    <fo:table-body font-size="0.35cm">
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text >(&#160; &#160;) NAL</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CIP</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) NOR</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) AMI</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) CLI</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) OXA</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) AMC</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) CLO</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) PEN</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) AMP</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) DAP</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) PPT</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) ASB</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) ERI</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) POL</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) ATM</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) ERT</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) RIF</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CFL</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) GEN120</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) TEC</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) CPM</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160; &#160;) GEN</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) TET</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CTX</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) IMI</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) TIG</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CFO</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) LEV</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160; &#160;) TOB</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CAZ</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) LIN</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) STRE300</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CRO</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>( &#160;&#160;) MER</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) SUT</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row >
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) CFU</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) NIT</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160; ) VAN</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                    </fo:table-body>
+                                                </fo:table>
+                                            </fo:table-cell>
+                                            <fo:table-cell>
+                                                <fo:block font-weight="bold" text-align="left">
+                                                    <xsl:text>BACTÉRIA:__________________________</xsl:text>
+                                                </fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell font-weight="bold" text-align="center">
+                                                <fo:block>
+                                                    <xsl:text>CRESCIMENTO:___________________</xsl:text>
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        <xsl:if
+                                test="count(ConjuntoDeComentarios/ComentarioAlerta) > 0">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block font-size="0.25cm"
+                                              font-weight="bold" space-before="0.1cm">
+                                        <xsl:value-of
+                                                      select="../../RotuloComentariosAlerta" />
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <fo:inline>
+                                            <xsl:for-each
+                                                          select="ConjuntoDeComentarios/ComentarioAlerta">
+                                                <xsl:value-of
+                                                              select="." />
+                                                <xsl:text>|</xsl:text>
+                                            </xsl:for-each>
+                                        </fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:if>
+                        <xsl:if
+                                test="count(ConjuntoDeComentarios/Comentario) > 0">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block font-size="0.25cm"
+                                              font-weight="bold" space-before="0.1cm">
+                                        <xsl:value-of
+                                                      select="../../RotuloComentarios" />
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <fo:inline>
+                                            <xsl:for-each
+                                                          select="ConjuntoDeComentarios/Comentario">
+                                                <xsl:value-of
+                                                              select="." />
+                                                <xsl:text>|</xsl:text>
+                                            </xsl:for-each>
+                                        </fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:if>
+                        <xsl:if
+                                test="count(Paciente/DadosClinicos/*) > 0">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block font-size="0.25cm"
+                                              font-weight="bold" space-before="0.1cm">
+                                        <xsl:value-of
+                                                      select="../../RotuloObservacoes" />
+                                    </fo:block>
+                                </fo:table-cell>       
+                            </fo:table-row>       
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block font-size="0.25cm">
+                                        <fo:inline>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Altura) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloAltura" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Altura" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Peso) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloPeso" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Peso" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Dum) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloDum" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Dum" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/EstadoGestacional) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloEstadoGestacional" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/EstadoGestacional" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/ResultadosAnteriores) > 0">
+                                                <fo:block>
+                                                    <fo:inline
+                                                               font-weight="bold">
+                                                        <xsl:value-of
+                                                                      select="../../RotuloResultadosAnteriores" />
+                                                        :
+                                                    </fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/ResultadosAnteriores" />
+                                                </fo:block>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/ResultadosCorrelatos) > 0">
+                                                <fo:block>
+                                                    <fo:inline
+                                                               font-weight="bold">
+                                                        <xsl:value-of
+                                                                      select="../../RotuloResultadosCorrelatos" />
+                                                        :
+                                                    </fo:inline>
+                                                    <xsl:for-each select="Paciente/DadosClinicos/ResultadosCorrelatos/Correlato[1]" >
+                                                        <!-- 
+              <xsl:value-of select="Status"/>
+               -->
+                                                        <xsl:value-of select="Data"/>
+                                                        <xsl:value-of select="PosContainer"/>
+                                                        <xsl:text> </xsl:text>
+                                                        <xsl:value-of select="Teste"/>
+                                                    </xsl:for-each>
+                                                    <xsl:for-each select="Paciente/DadosClinicos/ResultadosCorrelatos/Correlato[position() > 1]" >
+                                                        <xsl:text> | </xsl:text>
+                                                        <!-- 
+              <xsl:value-of select="Status"/>
+               -->
+                                                        <xsl:value-of select="Data"/>
+                                                        <xsl:value-of select="PosContainer"/>
+                                                        <xsl:text> </xsl:text>
+                                                        <xsl:value-of select="Teste"/>
+                                                    </xsl:for-each>
+                                                </fo:block>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/PosContainerCorrelatos) > 0">
+                                                <fo:block>
+                                                    <fo:inline
+                                                               font-weight="bold">
+                                                        <xsl:value-of
+                                                                      select="../../RotuloPosContainerCorrelatos" />
+                                                        :
+                                                    </fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/PosContainerCorrelatos" />
+                                                </fo:block>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/CutOff) > 0">
+                                                <fo:block>
+                                                    <fo:inline
+                                                               font-weight="bold">
+                                                        <xsl:value-of
+                                                                      select="../../RotuloCutOff" />
+                                                        :
+                                                    </fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/CutOff" />
+                                                </fo:block>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Medicamentos) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloMedicamentos" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Medicamentos" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Doencas) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloDoencas" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Doencas" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/Cirurgias) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloCirurgias" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/Cirurgias" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if
+                                                    test="count(Paciente/DadosClinicos/SinaisSintomas) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloSinaisSintomas" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/SinaisSintomas" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>
+                                            <xsl:if test="count(Paciente/DadosClinicos/InstrucoesExecucao) > 0">
+                                                <fo:inline
+                                                           font-weight="bold">
+                                                    <xsl:value-of
+                                                                  select="../../RotuloInstrucoesExecucao" />
+                                                    :
+                                                </fo:inline>
+                                                <fo:inline>
+                                                    <xsl:value-of
+                                                                  select="Paciente/DadosClinicos/InstrucoesExecucao" />
+                                                    <xsl:text>
+                                                        |
+                                                    </xsl:text>
+                                                </fo:inline>
+                                            </xsl:if>           
+                                        </fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:if>
+                        <xsl:if test="count(ConjuntoReconvocacoes/Reconvocacao) > 0">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block font-size="0.25cm" 
+                                              font-weight="bold" space-before="0.1cm">
+                                        <xsl:value-of select="../../RotuloReconvocacoes" />
+                                    </fo:block>        
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:if> 
+                        <xsl:if
+                                test="count(ConjuntoDeObservacoes/Observacao) > 0">
+                            <xsl:if
+                                    test="count(Paciente/DadosClinicos/*) = 0">
+                                <fo:table-row>
+                                    <fo:table-cell>
+                                        <fo:block font-size="0.25cm"
+                                                  font-weight="bold" space-before="0.1cm">
+                                            <xsl:value-of
+                                                          select="../../RotuloObservacoes" />
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </xsl:if>      
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <fo:inline>
+                                            <xsl:for-each
+                                                          select="ConjuntoDeObservacoes/Observacao">
+                                                <xsl:value-of
+                                                              select="." />
+                                                <xsl:text>|</xsl:text>
+                                            </xsl:for-each>
+                                        </fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:if>
+                        <xsl:if
+                                test="count(ConjuntoReconvocacoes/Reconvocacao) > 0">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <fo:inline>
+                                            <xsl:for-each
+                                                          select="ConjuntoReconvocacoes/Reconvocacao">
+                                                <xsl:value-of
+                                                              select="." />
+                                                <xsl:text>|</xsl:text>
+                                            </xsl:for-each>
+                                        </fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>        
+                        </xsl:if>
+                        <fo:table-row>
+                            <fo:table-cell>
+                                <fo:block>
+                                    <fo:leader leader-pattern="dots"
+                                               leader-length="26.2cm" />
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </xsl:for-each>
+        </fo:block>
+        <fo:block id="end-of-document"/>
+    </xsl:template>
+    <!-- Rodapé -->
+    <xsl:include href="rodape_retrato.xsl"/>
+</xsl:stylesheet>
+
+<!-- 
+000000000680
+
+1000.0001.0650
+
+800000013853
+-->
