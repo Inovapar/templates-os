@@ -486,18 +486,6 @@
                                                         <fo:table-row font-weight="bold">
                                                             <fo:table-cell>
                                                                 <fo:block>
-                                                                    <xsl:text>HEMÁCIAS:_________________</xsl:text>
-                                                                </fo:block>
-                                                            </fo:table-cell>
-                                                            <fo:table-cell>
-                                                                <fo:block>
-                                                                    <xsl:text>CLORO:________________________</xsl:text>
-                                                                </fo:block>
-                                                            </fo:table-cell>
-                                                        </fo:table-row>
-                                                        <fo:table-row font-weight="bold">
-                                                            <fo:table-cell>
-                                                                <fo:block>
                                                                     <xsl:text>LEUCÓCITOS:_______________</xsl:text>
                                                                 </fo:block>
                                                             </fo:table-cell>
