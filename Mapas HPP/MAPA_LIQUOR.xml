@@ -561,7 +561,7 @@
                                                                         <fo:table-row>
                                                                             <fo:table-cell>
                                                                                 <fo:block font-weight="bold">
-                                                                                    <xsl:text>ANÀLISE BIOQUIMICA:</xsl:text>
+                                                                                    <xsl:text>ANÁLISE BIOQUIMICA:</xsl:text>
                                                                                 </fo:block>
                                                                             </fo:table-cell>
                                                                             <fo:table-cell>
