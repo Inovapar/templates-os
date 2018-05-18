@@ -6,7 +6,7 @@
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21.0cm" margin-top="0.5cm" margin-bottom="0.1cm" margin-left="1.0cm" margin-right="2.0cm">
-                    <fo:region-body margin-top="2.8cm" margin-bottom="1.4cm"/>
+                    <fo:region-body margin-top="3.1cm" margin-bottom="1.4cm"/>
                     <fo:region-before extent="3.5cm"/>
                     <fo:region-after extent="1.3cm"/>
                 </fo:simple-page-master>
@@ -83,7 +83,7 @@
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row font-size="0.3cm">
+                    <fo:table-row font-size="0.3cm" height="0.5cm">
                         <fo:table-cell>
                             <fo:block font-weight="bold">
                                 <xsl:value-of select="Plataforma/rotulo"/>
@@ -453,19 +453,250 @@
                                 <fo:table>
                                     <fo:table-column column-width="proportional-column-width(1)"/>
                                     <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-column column-width="proportional-column-width(1)"/>
-                                    <fo:table-body>
+                                    <fo:table-body font-size="0.3cm">
                                         <fo:table-row>
                                             <fo:table-cell>
-                                                <fo:block>
-                                                    <xsl:text></xsl:text>
-                                                </fo:block>
+                                                <fo:table table-layout="fixed">
+                                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                                    <fo:table-body line-height="0.5cm">
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block font-weight="bold">
+                                                                    <xsl:text>VOLUME:_______________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block font-weight="bold">
+                                                                    <xsl:text>COR:</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block font-weight="bold">
+                                                                    <xsl:text>CRISTAIS:</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Amarelo Citrino</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Oxalato de Cálcio______</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Amarelo Claro</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Ácido Úrico___________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Amarelo Escuro</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Urato Amorfo__________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Verde</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Fosfato Triplo__________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Vermelho</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Fosfato Amorfo________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Alaranjado</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Outros_______________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Castanho</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Âmbar</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block font-weight="bold">
+                                                                    <xsl:text>ASPECTO:</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block font-weight="bold">
+                                                                    <xsl:text>CILINDROS:</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Límpido</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Hialino________________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Levemente Turvo</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Granuloso_____________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Turvo</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Hemático_____________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block/>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Leucocitário___________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block/>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>(&#160;&#160;) Céreo________________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                    </fo:table-body>
+                                                </fo:table>
+                                            </fo:table-cell>
+                                            <fo:table-cell>
+                                                <fo:table table-layout="fixed">
+                                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                                    <fo:table-column column-width="proportional-column-width(1)"/>
+                                                    <fo:table-body  line-height="0.8cm">
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>Hemácias:_______________/ ml</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>Leucócitos:_______________/ ml</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>Células:__________________/ ml</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell>
+                                                                <fo:block>
+                                                                    <xsl:text>Muco:_____________________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                            <fo:table-cell text-align="center">
+                                                                <fo:block>
+                                                                    <xsl:text>GRAMPEAR AQUI</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>Leveduras:_________________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>Outros:____________________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                        <fo:table-row>
+                                                            <fo:table-cell number-columns-spanned="2">
+                                                                <fo:block>
+                                                                    <xsl:text>BACTERIOSCOPIA:__________</xsl:text>
+                                                                </fo:block>
+                                                            </fo:table-cell>
+                                                        </fo:table-row>
+                                                    </fo:table-body>
+                                                </fo:table>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
